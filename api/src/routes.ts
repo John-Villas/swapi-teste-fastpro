@@ -1,20 +1,13 @@
-import { Application, Router } from "express"
+import { Router } from "express"
 import { CreateUserController } from "./controllers/CreateUserController"
+import { AuthController } from "./controllers/AuthController"
+import { GetCharactersController } from "./controllers/GetCharactersController"
+import authMiddleware from "./middlewares/authMiddleware"
 
 const routes = Router()
 
 routes.post("/user", new CreateUserController().handle)
-
-// export default function routes(app: Application): void {
-//   app.get("/", (req, res) => {
-//     res.send(`cavalo`)
-//   })
-//   app.post("/user", (req, res) => {
-//     res.send(`boba`)
-//   })
-//   app.get("/borpa", (req, res) => {
-//     res.send(`borpa`)
-//   })
-// }
+routes.post("/auth", new AuthController().authenticate)
+routes.get("/characters", authMiddleware, new GetCharactersController().handle)
 
 export { routes }
