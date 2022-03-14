@@ -2,16 +2,18 @@ import { Request, Response } from "express"
 import { CreateUserService } from "../services/CreateUserService"
 
 export class CreateUserController {
-  async handle(request: Request, response: Response) {
-    const { name, phone, email, password } = request.body
+  async handle(req: Request, res: Response) {
+    const { name, phone, email, password } = req.body
 
     const service = new CreateUserService()
     const result = await service.execute({ name, phone, email, password })
 
     if (result instanceof Error) {
-      return response.status(400).json(result.message)
+      return res.status(409).json(result.message)
     }
 
-    return response.json(result)
+    delete result.password
+
+    return res.json(result)
   }
 }
