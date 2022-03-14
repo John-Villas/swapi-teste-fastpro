@@ -3,7 +3,7 @@ import { User } from "../entities/User"
 
 interface UserRequest {
   name: string
-  phone: number
+  phone: string
   email: string
   password: string
 }
