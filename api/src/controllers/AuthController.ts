@@ -14,7 +14,9 @@ export class AuthController {
       return res.status(401).json(result.message)
     }
 
-    const token = jwt.sign({ id: result.id }, "secret", { expiresIn: "1d" })
+    const token = jwt.sign({ id: result.id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    })
 
     delete result.password
 

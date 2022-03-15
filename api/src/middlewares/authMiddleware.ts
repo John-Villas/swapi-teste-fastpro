@@ -20,7 +20,7 @@ export default async function authMiddleware(
       throw new Error()
     }
     const token = authorization.replace("Bearer", "").trim()
-    const { id } = jwt.verify(token, "secret") as TokenPayload
+    const { id } = jwt.verify(token, process.env.JWT_SECRET) as TokenPayload
 
     const service = new AuthService()
     req.user = await service.verify(id)
