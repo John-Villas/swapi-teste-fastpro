@@ -1,13 +1,14 @@
 import { Request, Response } from "express"
+import fetch from "node-fetch"
 
 export class GetCharactersController {
   async handle(req: Request, res: Response) {
-    const result = { message: "foi" }
+    const result = await fetch(`https://swapi.dev/api/people/?page=1`)
+      .then((res) => res.json())
+      .then((json) => {
+        return json
+      })
 
-    // if (result instanceof Error) {
-    //   return res.status(409).json(result)
-    // }
-
-    return res.json(req.user)
+    return await res.json(result)
   }
 }
