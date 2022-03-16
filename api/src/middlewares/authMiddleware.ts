@@ -24,7 +24,6 @@ export default async function authMiddleware(
 
     const service = new AuthService()
     req.user = await service.verify(id)
-
     return next()
   } catch (error) {
     console.log(error)
